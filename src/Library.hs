@@ -132,8 +132,8 @@ verificarSiAumentarHororcrux hechizo postre mago
     | quedaIgualQueAvadaKedavra hechizo postre = mago {horrorcruxes = horrorcruxes mago +1}
     | otherwise = mago
 
-quedaIgualQueAvadaKedavra :: Hechizo -> Postre -> Bool 
-quedaIgualQueAvadaKedavra hechizo postre = hechizo postre == avadaKedavra postre 
+quedaIgualQueAvadaKedavra :: Hechizo -> Postre -> Bool
+quedaIgualQueAvadaKedavra hechizo postre = hechizo postre == avadaKedavra postre
 
 ------------------- Punto 2B -------------------
 
@@ -156,9 +156,40 @@ cantidadSabores postre = length (sabores postre)
 
 ------------------- Punto 3A -------------------
 
-mesaInfinita :: Mesa -> Mesa
-mesaInfinita mesa = mesaInfinita (mesa ++ [chocotorta])
 
-mesa10 :: Mesa 
-mesa10 = (copitos : mesaInfinita mesa10)
+devolver3Elemento :: Mesa -> Postre
+devolver3Elemento (postre1:postre2:postre3:siguiente) = postre3
 
+
+devolver4Elemento :: Mesa -> Postre
+devolver4Elemento (postre1:postre2:postre3:postre4:siguiente) = postre4
+
+
+devolver5Elemento :: Mesa -> Postre
+devolver5Elemento (postre1:postre2:postre3:postre4:postre5:siguiente) = postre5
+
+
+devolver2Elemento :: Mesa -> Postre
+devolver2Elemento (postre1:postre2:siguiente) = postre2
+
+mesa10 :: Mesa
+mesa10 = copitos : mesa10
+
+agregarInfinitamente :: Mesa -> Mesa
+agregarInfinitamente mesa = chocotorta : mesa
+
+mesa99 :: Mesa
+mesa99 = agregarInfinitamente mesa99
+
+{-
+
+3B - El unico caso en el que nos daria una respuesta es en aquel que un postre no quede listo al aplicarle
+el hechizo, por lo que la unica respuesta posible que nos va a dar el consultar si algun hechizo los deja listo 
+es FALSE. Esto ya que para devolver TRUE debe evaluar con TODOS los postres de la lista, pero esto nunca terminaria
+de ocurrir ya que la lista es infinita, en cambio si podria devolver FALSE, poque ya evaluando uno a uno y cuando 
+encuentra un postre que no queda listo deja de evaluar los demas y simplemente  devuelve FALSE. Esto debido a que 
+Haskell implementa el Lazy Evaluation
+
+3C - No existe ninguna forma de conocer el mejor hechizo del mago porque para hacerlo hay que evaluar todos los elementos lista, aún teniendo lazy evaluation.
+
+-}
